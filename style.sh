@@ -24,13 +24,15 @@ error() {
 
 name="stranger"
 count=1
+upper=false
 
-while getopts ":hn:c:" opt
+while getopts ":hn:c:u" opt
 do
     case "$opt" in
         h) usage; exit 0 ;;
         n) name="$OPTARG" ;;
         c) count="$OPTARG" ;;
+        u) upper=true ;;
         \?) error "Unknown option: -$OPTARG" ;;
         :) error "Missing argument for -$OPTARG" ;;
     esac
@@ -41,7 +43,14 @@ then
     error "COUNT must be a postive integer (>=1)."
 fi
 
+message="Hello, $name!"
+
 for ((i=1; i<=count; i++))
 do
-    echo "Hello, $name!"
+    if [ "$upper" = true ]
+    then    
+        echo "$message" | tr '[:lower:]' '[:upper:]'
+    else
+        echo "$message"
+    fi
 done
