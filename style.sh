@@ -38,12 +38,16 @@ do
     esac
 done
 
+shift $((OPTIND -1))
+custom="${1:-}"
+
+message="${custom:-Hello, $name!}"
+
 if ! [[ "$count" =~ ^[1-9][0-9]*$ ]]
 then
     error "COUNT must be a postive integer (>=1)."
 fi
 
-message="Hello, $name!"
 
 for ((i=1; i<=count; i++))
 do
